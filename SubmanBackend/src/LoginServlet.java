@@ -1,5 +1,7 @@
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,6 +34,12 @@ public class LoginServlet extends HttpServlet {
 		String name=request.getParameter("name");
 		String key=request.getParameter("key");
 		//Ask database for login data verification
+		try {
+			DBA data=new DBA();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 		//response.getWriter().append("Served at: ").append(request.getContextPath());

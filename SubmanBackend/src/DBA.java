@@ -3,9 +3,12 @@ import java.io.BufferedReader;
 import java.io.Closeable;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.Connection;
+//import java.sql.Connection;
+import com.mysql.jdbc.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
+import com.mysql.jdbc.PreparedStatement;
 
 /**
  * 
@@ -43,7 +46,7 @@ public class DBA implements Closeable{
 			System.exit(1);
 			e.printStackTrace();
 		}
-		conn=DriverManager.getConnection(URL, USER, password);//would throw when connection fails
+		conn=(Connection) DriverManager.getConnection(URL, USER, password);//would throw when connection fails
 		//TODO log message of successful connection to database
 	}
 
@@ -64,6 +67,12 @@ public class DBA implements Closeable{
 			// why the fuck would a close() fail
 			e.printStackTrace();
 		}
+		
+	}
+	
+	public boolean login(String user, String key) {
+		PreparedStatement
+		return true;
 		
 	}
 }
