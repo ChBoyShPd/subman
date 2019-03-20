@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
 /**
  * Servlet implementation class HomeServlet
  */
@@ -20,17 +21,20 @@ public class HomeServlet extends HttpServlet {
      */
     public HomeServlet() {
         super();
-        // TODO Auto-generated constructor stub
+        
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		HttpSession session = request.getSession();
+		// TODO implement this api
+		HttpSession session = request.getSession(false);
+		if(session==null) { // please login
+			//TODO redirect
+		}
 //		session.
-		//		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 	}
 
 	/**

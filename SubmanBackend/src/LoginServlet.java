@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class LoginServlet
@@ -30,15 +31,20 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		HttpSession session=request.getSession(true);
+		
 		String name=request.getParameter("name");
 		String key=request.getParameter("key");
+		boolean result=false;
 		//Ask database for login data verification
 		try {
 			DBA data=new DBA();
+			result=data.login(name, key);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// TODO log ERROR
 			e.printStackTrace();
+			response.sendError(500,e.getMessage()+"\n\n"+e.getSQLState());
+			return;
 		}
 		
 		
