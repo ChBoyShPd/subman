@@ -3,12 +3,14 @@ import java.io.BufferedReader;
 import java.io.Closeable;
 import java.io.FileReader;
 import java.io.IOException;
-//import java.sql.Connection;
-import com.mysql.jdbc.Connection;
+import java.sql.Connection;
+import com.mysql.jdbc.MySQLConnection; //TODO which one to use?
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
-import com.mysql.jdbc.PreparedStatement;
+//import com.mysql.jdbc.PreparedStatement;
 
 /**
  * 
@@ -44,7 +46,6 @@ public class DBA implements Closeable{
 			System.err.println("PLEASE SETUP THE MYSQL JDBC DRIVER NOW!!!");
 			e.printStackTrace();
 			System.exit(1);
-			e.printStackTrace();
 		}
 		conn=(Connection) DriverManager.getConnection(URL, USER, password);//would throw when connection fails
 		//TODO log message of successful connection to database
@@ -69,10 +70,27 @@ public class DBA implements Closeable{
 		}
 		
 	}
-	
-	public boolean login(String user, String key) {
-		PreparedStatement
-		return true;
+	/**
+	 * 
+	 * @param user The uid of the user, presumably from front end
+	 * @param key HashedPassword, presumably from front end
+	 * @return if authentication is successful
+	 * @throws SQLException
+	 */
+	public boolean login(String user, String key) throws SQLException {
+		PreparedStatement statement=conn.prepareStatement("SELECT passwordhash FROM Users WHERE uid = \"?\" ;");
+		statement.setString(1, user);
+		ResultSet resultSet=statement.executeQuery();
+		while(resultSet.next()) {
+			String passwordHash=resultSet.getString(1); //FIXME check if this is correct
+			resultSet.close();
+			statement.close();
+			return passwordHash.equals(key); //The resultSet should have only one row despite it being in a loop
+		}
+		//log WARNING, empty ResultSet
+		resultSet.close();
+		statement.close();
+		return false;
 		
 	}
 }

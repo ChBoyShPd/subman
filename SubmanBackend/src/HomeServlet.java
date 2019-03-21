@@ -32,6 +32,7 @@ public class HomeServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		if(session==null) { // please login
 			//TODO redirect
+			//TODO 401
 		}
 //		session.
 		

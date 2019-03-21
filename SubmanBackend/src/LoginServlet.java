@@ -31,24 +31,28 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		HttpSession session=request.getSession(true);
-		
-		String name=request.getParameter("name");
-		String key=request.getParameter("key");
-		boolean result=false;
-		//Ask database for login data verification
-		try {
-			DBA data=new DBA();
-			result=data.login(name, key);
+		String name = request.getParameter("name");
+		String key = request.getParameter("key");
+		boolean success = false;
+		try {	// Ask database for login data verification
+			DBA data = new DBA();
+			success = data.login(name, key);
+			data.close();
 		} catch (SQLException e) {
 			// TODO log ERROR
 			e.printStackTrace();
-			response.sendError(500,e.getMessage()+"\n\n"+e.getSQLState());
+			response.sendError(500, e.getMessage() + "\n\n" + e.getSQLState());
 			return;
 		}
-		
-		
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		if (!success) {
+			response.sendError(401, "Authentication for user " + name + " has failed.");
+			return;
+			// TODO specify what's wrong, may need to rewrite DBA.login()
+		}
+		HttpSession session = request.getSession(true);
+		session.setAttribute("username", name);
+		response.getWriter().append("success");
+		//TODO Is this good enough? What does the frontend need?
 	}
 
 	/**
@@ -58,7 +62,7 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+
 		doGet(request, response);
 	}
 
