@@ -53,6 +53,7 @@ public class LoginServlet extends HttpServlet {
 		session.setAttribute("username", name);
 		response.getWriter().append("success");
 		//TODO Is this good enough? What does the frontend need?
+		
 	}
 
 	/**
