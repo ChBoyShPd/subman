@@ -40,7 +40,7 @@ public class LoginServlet extends HttpServlet {
 			data.close();
 		} catch (SQLException e) {
 			// TODO log ERROR
-			e.printStackTrace();
+//			e.printStackTrace();
 			response.sendError(500, e.getMessage() + "\n\n" + e.getSQLState());
 			return;
 		}
