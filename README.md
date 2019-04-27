@@ -11,6 +11,8 @@ To provide a **task-assignment** and **progress-tracking** web platform (web app
 ### User
 * Subtitle project managers.
 * Subtitle project participants: dicatators, translators, proofreaders and timeliners.
+### License
+*Mozilla Public License 2.0*
 ## Deployment
 ### Backend
 The backend is contained in /SubmanBackend folder. The contents can be packed into a war file then deployed on an *Apache Tomcat 8.5* instance.
