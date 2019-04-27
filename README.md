@@ -1,4 +1,7 @@
-# subman
+# Subman
+*Rensselaer Center for Open Source* development project starting Spring 2019.
+Developer:
+* Adam Xu, xux8@rpi.edu
 ## Description
 ### Goal
 To enable the enjoying of spreading cultural products across languaging barriers, and to ease the job of those who work this goal.
